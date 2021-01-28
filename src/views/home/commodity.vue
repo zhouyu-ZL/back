@@ -4,7 +4,7 @@
     <div class="commodity_wrap">
       <div class="commodity">
         <h1>商品管理</h1>
-        <el-button type="primary">添加商品</el-button>
+        <el-button type="primary">添加商品8</el-button>
       </div>
       <div class="commodity_top">
         <el-form ref="form" :model="form" class="form">
