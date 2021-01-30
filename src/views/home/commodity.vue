@@ -4,22 +4,18 @@
     <div class="commodity_wrap">
       <div class="commodity">
         <h1>商品管理</h1>
-        <el-button type="primary">添加商品8</el-button>
+        <el-button type="primary" @click="add">添加商品</el-button>
       </div>
       <div class="commodity_top">
-        <el-form ref="form" :model="form" class="form">
+        <el-form ref="form" class="form">
           <el-form-item>
-            <el-select
-              v-model="form.region"
-              placeholder="按商品id查询"
-              class="inp"
-            >
-              <el-option label="按商品id查询" v-model="id"></el-option>
-              <el-option label="按商品名称查询" v-model="name"></el-option>
+            <el-select v-model="value" placeholder="请选择" class="inp">
+              <el-option label="按商品id查询" value="productId"></el-option>
+              <el-option label="按商品名称查询" value="productName"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-input v-model="id" placeholder="关键字"></el-input>
+            <el-input v-model="search_data" placeholder="请输入内容"></el-input>
           </el-form-item>
           <el-button type="primary" class="btn" @click="search">查询</el-button>
         </el-form>
@@ -49,8 +45,12 @@
           <el-table-column prop="address" label="操作">
             <template scope="scope">
               <div>
-                <el-button size="small" @click="examine(scope.row.id)">查看</el-button>
-                <el-button size="small">编辑</el-button>
+                <el-button size="small" @click="examine(scope.row.id)"
+                  >查看</el-button
+                >
+                <el-button size="small" @click="compile(scope.row.id)"
+                  >编辑</el-button
+                >
               </div>
             </template>
           </el-table-column>
@@ -74,16 +74,13 @@
 export default {
   data() {
     return {
-      form: {
-        name: "",
-        region: "",
-      },
-      id: "",
+      value: "",
       total: 0,
       pagenum: 1,
       pagesize: 5,
       tableData: [],
       name: "",
+      search_data: "",
     };
   }, //方法
 
@@ -157,27 +154,34 @@ export default {
     },
 
     search() {
-      console.log(this.id);
-      let params = {
-        productId: this.id,
-      };
+      console.log(this.value, this.search_data);
+      let params = {};
+      if (this.value == "productId") {
+        params = {
+          productId: this.search_data,
+        };
+      } else {
+        params = {
+          productName: this.search_data,
+        };
+      }
       this.$http
         .search(params)
         .then((result) => {
-          // console.log(result);
+          console.log(result);
+          this.tableData = result.data.list;
+          this.total = result.data.total;
         })
         .catch((err) => {});
     },
     examine(id) {
-      console.log(id);
-      let params={
-        productId:id
-      }
-      this.$http.examine(params).then((result) => {
-        console.log(result);
-      }).catch((err) => {
-        
-      });
+      this.$router.push({ path: "/examine", query: { id: id } });
+    },
+    compile(id) {
+      this.$router.push({ path: "/compile", query: { id: id } });
+    },
+    add() {
+      this.$router.push("/addlist");
     },
   }, //挂载后生命周期函数
 

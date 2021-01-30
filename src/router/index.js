@@ -40,6 +40,33 @@ const routes = [
         component: () => import("../views/home/order.vue"),
 
       },
+      {
+        path: "/examine",
+        name: "examine",
+        component: () => import("../views/home/examine.vue"),
+
+      },
+      {
+        path: "/compile",
+        name: "compile",
+        component: () => import("../views/home/compile.vue"),
+
+      },
+      {
+        path: "/addlist",
+        name: "addlist",
+        component: () => import("../views/home/addlist.vue"),
+      },
+      {
+        path: "/add",
+        name: "add",
+        component: () => import("../views/home/add.vue"),
+      },
+      {
+        path: "/detail",
+        name: "detail",
+        component: () => import("../views/home/detail.vue"),
+      },
     ],
   },
   {
@@ -47,6 +74,7 @@ const routes = [
     name: "login",
     component: () => import("../views/login.vue"),
   },
+  
 ];
 
 const router = new VueRouter({
