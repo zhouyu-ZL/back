@@ -5,7 +5,7 @@
         <div class="home_nav">
           <ul>
             <li>MMALL ADMIN</li>
-            <li>欢迎，admin</li>
+            <li>欢迎，admin111</li>
             <li><el-button type="primary" class="home_btn" @click="exit">退出</el-button></li>
           </ul>
         </div>
